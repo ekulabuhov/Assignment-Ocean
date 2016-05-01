@@ -7,6 +7,7 @@
 #include <GL\glew.h>
 #include <GL\GL.h>
 #include "Shader.hpp"
+#include <glm\gtc\matrix_transform.hpp>
 
 
 class CubeMap{
@@ -33,6 +34,6 @@ public:
 	GLuint texID;
 
 	void loadCubeMap(const char* mapFolder);
-	void drawSkyBox(Shader shader);
+	void drawSkyBox(Shader shader, glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	void use();
 };

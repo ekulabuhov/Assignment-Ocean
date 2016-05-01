@@ -184,3 +184,11 @@ void Shader::setUniform1f(std::string uniformName, GLfloat v)
 	glUniform1f(uniformLocation, v);
 }
 
+void Shader::setUniform1i(std::string uniformName, GLint v)
+{
+	GLuint uniformLocation = this->_getUniformLocation(uniformName);
+	if (uniformLocation == -1)
+		return;
+	glUniform1i(uniformLocation, v);
+}
+

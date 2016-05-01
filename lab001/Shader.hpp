@@ -22,6 +22,7 @@ public:
 	void setUniformMatrix4fv(std::string uniformName, glm::mat4x4 matrix);
 	void setUniformVector3f(std::string uniformName, glm::vec3 v);
 	void setUniform1f(std::string uniformName, GLfloat v);
+	void setUniform1i(std::string uniformName, GLint v);
 
 	bool loadShadersFromFiles(std::string vertShaderPath, std::string fragShaderPath);
 

@@ -44,6 +44,15 @@
     <ClCompile Include="Cone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ArrowHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FBTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.hpp">
@@ -71,6 +80,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Cone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FBTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -156,6 +174,18 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\shadow.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\simpleDepth.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\simpleDepth.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\water.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\water.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
