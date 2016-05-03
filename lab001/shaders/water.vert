@@ -15,6 +15,9 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform float time;
+uniform float deltaTime;
+uniform float kludgeCoef;
+uniform float windspeed;
 
 // gravitational constant (m/sec)
 float g = 9.8f;
@@ -39,22 +42,35 @@ float kfactor(float V)
     return (w*w)/g;
 }
 
+// windspeed = 5;
 // kr ~= 0.9
-float windspeed = 5;
-float kludgeCoef = 8.5;
+
+// our x is in range of -15 to +15
+// this function is our depth map
+float h(float x) 
+{
+	if (x < 0) {
+		return 5; // deep sea
+	}
+
+	if (x >= 0) {
+		return 0.5; // shallow waters
+	}
+}
 
 void main()
 {
 	vec3 dpos = position;
     
     float r = rfactor(windspeed);
-    float k = kfactor(windspeed);
+    float k_inf = kfactor(windspeed); // wavenumber at infinite depth
     float w = wfactor(windspeed);
+	float k = k_inf / sqrt(tanh(k_inf * h(dpos.x)));
 
 	dpos.x += r * sin(k*dpos.x - w*time);
     dpos.z = -r * cos(k*dpos.x - w*time); 
 	
-	float phase = k * position.x - w  * time -  kludgeCoef * dpos.z * 0.1;
+	float phase = k * position.x - w  * time -  kludgeCoef * dpos.z * deltaTime;
 	dpos.z = -r * cos(phase);
 
 	clipSpace = projection * view * model * vec4(dpos, 1.0f);

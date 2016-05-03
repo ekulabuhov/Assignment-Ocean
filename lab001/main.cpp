@@ -78,7 +78,7 @@ bool initWindow()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(800, 800, "Assignment #3 (Model) - OpenGL", NULL, NULL);
+	window = glfwCreateWindow(800, 800, "Assignment #6 Ocean - OpenGL", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -173,6 +173,7 @@ public ref class X
 public:
 	static MyForm^ myForm = gcnew MyForm();
 	bool wireframe;
+	float kludgeCoef, windspeed;
 	void EntryPoint()
 	{
 		Application::EnableVisualStyles();
@@ -182,6 +183,10 @@ public:
 	void Update()
 	{
 		this->wireframe = myForm->cbWireframe->Checked;
+		this->kludgeCoef = myForm->tbKludgeCoef->Value / 10.0f;
+		myForm->lblKludgeCoef->Text = "Kludge Coefficient: " + this->kludgeCoef * 10.0f;
+		this->windspeed = myForm->tbWindspeed->Value / 10.0f;
+		myForm->lblWindspeed->Text = "Windspeed: " + this->windspeed * 10.0f;
 	}
 };
 
@@ -261,6 +266,9 @@ int main()
 
 		waterShader.enableShader();
 		waterShader.setUniform1f("time", currentFrame);
+		waterShader.setUniform1f("deltaTime", deltaTime);
+		waterShader.setUniform1f("kludgeCoef", o1->kludgeCoef);
+		waterShader.setUniform1f("windspeed", o1->windspeed);
 
 		// Render reflection texture
 		glBindFramebuffer(GL_FRAMEBUFFER, reflectionTexture->framebufferId);

@@ -1,5 +1,7 @@
 #include "Grid.h"
+#include "TextureLoader.h"
 
+#pragma region vertices
 GLfloat Grid::vertices[] = {-15,15,0,0,0,1,
 -15,14,0,0,0,1,
 -14,15,0,0,0,1,
@@ -5400,13 +5402,15 @@ GLfloat Grid::vertices[] = {-15,15,0,0,0,1,
 14,-15,0,0,0,1,
 15,-15,0,0,0,1,
 15,-14,0,0,0,1};
-
+#pragma endregion
 
 Grid::Grid(Shader* shader, glm::vec3 position, GLuint reflectionTexId, GLuint refractionTexId)
 	: Geometry(shader, position, vertices, sizeof(vertices))
 {
 	this->reflectionTexId = reflectionTexId;
 	this->refractionTexId = refractionTexId;
+
+	this->normalMapTexId = TextureLoader::loadTexture("../textures/normalMap.png");
 }
 
 void Grid::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix) 
@@ -5417,6 +5421,7 @@ void Grid::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	_shader->setUniformMatrix4fv("model", _modelMatrix);
 	// tell our shader that refraction texture is in unit 1
 	_shader->setUniform1i("refractionTexture", 1);
+	_shader->setUniform1i("normalMap", 2);
 	
 
 	/* Tell GL we want to work on our VAO */
@@ -5428,6 +5433,9 @@ void Grid::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, this->refractionTexId);
+
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, this->normalMapTexId);
 
 	glDrawArrays(this->drawMode, 0, this->_triangleCount);
 	//glBindTexture(this->textureTarget, 0);

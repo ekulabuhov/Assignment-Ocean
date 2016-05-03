@@ -7,8 +7,8 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
-#include <SOIL.h>
 
+#include "TextureLoader.h"
 #include "ShaderManager.hpp"
 
 class Geometry

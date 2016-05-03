@@ -121,6 +121,7 @@
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="ShaderManager.hpp" />
+    <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

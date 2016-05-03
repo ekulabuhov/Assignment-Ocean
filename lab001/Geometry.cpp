@@ -1,7 +1,5 @@
 #include "Geometry.hpp"
 
-GLuint loadTexture(GLchar* path);
-
 Geometry::Geometry(Shader* shader, glm::vec3 position,
 				   GLfloat vertices[], int sizeOfVertices) {
 	Init(shader, position, vertices, sizeOfVertices);
@@ -13,7 +11,7 @@ Geometry::Geometry(Shader* shader, glm::vec3 position,
 	int attribSize = texturePath ? 8 : 6;
 
 	if (texturePath) {
-		this->textureId = loadTexture(texturePath);
+		this->textureId = TextureLoader::loadTexture(texturePath);
 	}
 
 	Init(shader, position, vertices, sizeOfVertices, this->textureId, GL_TEXTURE_2D);
@@ -176,28 +174,3 @@ glm::vec3 Geometry::localToWorld(glm::vec3 localPoint)
 	return glm::vec3(this->_modelMatrix * glm::vec4(localPoint, 1));
 }
 
-// This function loads a texture from file. Note: texture loading functions like these are usually 
-// managed by a 'Resource Manager' that manages all resources (like textures, models, audio). 
-// For learning purposes we'll just define it as a utility function.
-GLuint loadTexture(GLchar* path)
-{
-    // Generate texture ID and load texture data 
-    GLuint textureID;
-    glGenTextures(1, &textureID);
-    int width, height;
-    unsigned char* image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGB);
-    // Assign texture to ID
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    // Parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    SOIL_free_image_data(image);
-    return textureID;
-
-}

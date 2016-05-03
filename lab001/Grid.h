@@ -11,5 +11,5 @@ public:
 	void draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 
 private:
-	GLuint reflectionTexId, refractionTexId;
+	GLuint reflectionTexId, refractionTexId, normalMapTexId;
 };
